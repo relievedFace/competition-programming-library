@@ -15,15 +15,6 @@ pub trait Reader<T: FromStr, R: Read> {
     fn read(&mut self) -> T;
 }
 
-trait Hidden {
-    fn print(&self) {}
-}
-
-impl<R: Read> Hidden for Scanner<R> {
-    fn print(&self) {
-        println!("HI");
-    }
-}
 impl<R: Read> Reader<String, R> for Scanner<R> {
     fn read(&mut self) -> String {
         let token: Vec<u8> = get_token(&mut self.reader).collect();
