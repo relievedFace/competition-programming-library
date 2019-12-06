@@ -5,3 +5,4 @@ pub mod mod_int;
 pub mod run_length_encoding;
 pub mod scanner;
 pub mod segumet_tree;
+pub mod union_find;

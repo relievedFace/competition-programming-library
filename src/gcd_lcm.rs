@@ -1,4 +1,4 @@
-fn gcd(n: u64, m: u64) -> u64 {
+pub fn gcd(n: u64, m: u64) -> u64 {
     if n % m == 0 {
         m
     } else {
@@ -6,6 +6,6 @@ fn gcd(n: u64, m: u64) -> u64 {
     }
 }
 
-fn lcm(n: u64, m: u64) -> u64 {
+pub fn lcm(n: u64, m: u64) -> u64 {
     n / gcd(n, m) * m
 }
