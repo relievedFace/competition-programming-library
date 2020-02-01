@@ -50,9 +50,7 @@ where
 
 #[cfg(test)]
 mod tests {
-    use super::test::Bencher;
     use super::*;
-    use rand::prelude::*;
     const SIZE: usize = 1 << 8;
     const BENCH_SIZE: usize = 1 << 16;
 
