@@ -24,19 +24,15 @@ impl<R: Read> Parse<String, R> for Scanner<R> {
 
 impl<R: Read> Parse<usize, R> for Scanner<R> {
     fn read(&mut self) -> usize {
-        get_token(&mut self.reader).fold(0, |a, x| a * 10 + (x - 48) as usize)
+        let mut token = get_token(&mut self.reader);
+        parse_usize(&mut token)
     }
 }
 
 impl<R: Read> Parse<i64, R> for Scanner<R> {
     fn read(&mut self) -> i64 {
         let mut token = get_token(&mut self.reader);
-        let head = token.next().unwrap();
-        if head == 45 {
-            -token.fold(0 as i64, |a, x| a * 10 + (x - 48) as i64)
-        } else {
-            token.fold((head - 48) as i64, |a, x| a * 10 + (x - 48) as i64)
-        }
+        parse_i64(&mut token)
     }
 }
 
@@ -47,4 +43,56 @@ fn get_token<'a, R: Read>(reader: &'a mut R) -> impl Iterator<Item = u8> + 'a {
         .flatten()
         .skip_while(|b| b.is_ascii_whitespace())
         .take_while(|b| !b.is_ascii_whitespace())
+}
+
+fn parse_i64<I: Iterator<Item = u8>>(token: &mut I) -> i64 {
+    let head = token.next().unwrap();
+    if head == 45 {
+        -token.fold(0 as i64, |a, x| a * 10 + (x - 48) as i64)
+    } else {
+        token.fold((head - 48) as i64, |a, x| a * 10 + (x - 48) as i64)
+    }
+}
+
+fn parse_usize<I: Iterator<Item = u8>>(token: &mut I) -> usize {
+    token.fold(0, |a, x| a * 10 + (x - 48) as usize)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn parse_i64_test1() {
+        let token = "0".as_bytes().to_vec();
+        let mut token = token.into_iter();
+        assert_eq!(parse_i64(&mut token), 0);
+    }
+
+    #[test]
+    fn parse_i64_test2() {
+        let token = "123456789".as_bytes().to_vec();
+        let mut token = token.into_iter();
+        assert_eq!(parse_i64(&mut token), 123456789);
+    }
+
+    #[test]
+    fn parse_i64_test3() {
+        let token = "-123456789".as_bytes().to_vec();
+        let mut token = token.into_iter();
+        assert_eq!(parse_i64(&mut token), -123456789);
+    }
+
+    #[test]
+    fn parse_usize_test1() {
+        let token = "0".as_bytes().to_vec();
+        let mut token = token.into_iter();
+        assert_eq!(parse_i64(&mut token), 0);
+    }
+
+    #[test]
+    fn parse_usize_test2() {
+        let token = "123456789".as_bytes().to_vec();
+        let mut token = token.into_iter();
+        assert_eq!(parse_i64(&mut token), 123456789);
+    }
 }
