@@ -11,24 +11,24 @@ impl<R: Read> Scanner<R> {
     }
 }
 
-pub trait Reader<T: FromStr, R: Read> {
+pub trait Parse<T: FromStr, R: Read> {
     fn read(&mut self) -> T;
 }
 
-impl<R: Read> Reader<String, R> for Scanner<R> {
+impl<R: Read> Parse<String, R> for Scanner<R> {
     fn read(&mut self) -> String {
         let token: Vec<u8> = get_token(&mut self.reader).collect();
         from_utf8(&token).unwrap().to_string()
     }
 }
 
-impl<R: Read> Reader<usize, R> for Scanner<R> {
+impl<R: Read> Parse<usize, R> for Scanner<R> {
     fn read(&mut self) -> usize {
         get_token(&mut self.reader).fold(0, |a, x| a * 10 + (x - 48) as usize)
     }
 }
 
-impl<R: Read> Reader<i64, R> for Scanner<R> {
+impl<R: Read> Parse<i64, R> for Scanner<R> {
     fn read(&mut self) -> i64 {
         let mut token = get_token(&mut self.reader);
         let head = token.next().unwrap();
