@@ -52,7 +52,6 @@ where
 mod tests {
     use super::*;
     const SIZE: usize = 1 << 8;
-    const BENCH_SIZE: usize = 1 << 16;
 
     #[test]
     fn max() {
