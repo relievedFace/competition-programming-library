@@ -1,4 +1,3 @@
-#![feature(test)]
 pub mod binary_search;
 pub mod gcd_lcm;
 pub mod mod_int;
