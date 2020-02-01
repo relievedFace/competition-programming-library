@@ -1,5 +1,3 @@
-extern crate test;
-
 pub struct SegmentTree<T, F> {
     n: usize,
     data: Vec<T>,
@@ -71,35 +69,5 @@ mod tests {
                 assert_eq!(seg.query(j, i), *random_array[j..i].iter().max().unwrap());
             }
         }
-    }
-
-    #[bench]
-    fn segment_tree(b: &mut Bencher) {
-        let random_array: Vec<i32> = (0..BENCH_SIZE).map(|_| rand::random()).collect();
-        let mut seg = SegmentTree::new(random_array.len(), std::i32::MIN, std::cmp::max);
-        for (i, &x) in random_array.iter().enumerate() {
-            seg.update(i as usize, x);
-        }
-
-        let mut rng = rand::thread_rng();
-        let right = rng.gen_range(0, BENCH_SIZE);
-        let left = rng.gen_range(0, right);
-
-        b.iter(|| {
-            seg.query(left, right);
-        });
-    }
-
-    #[bench]
-    fn liner(b: &mut Bencher) {
-        let random_array: Vec<i32> = (0..BENCH_SIZE).map(|_| rand::random()).collect();
-
-        let mut rng = rand::thread_rng();
-        let right = rng.gen_range(0, BENCH_SIZE);
-        let left = rng.gen_range(0, right);
-
-        b.iter(|| {
-            random_array[left..right].iter().max().unwrap();
-        });
     }
 }
