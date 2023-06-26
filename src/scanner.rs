@@ -1,5 +1,7 @@
-use std::io::prelude::*;
-use std::str::{from_utf8, FromStr};
+use std::{
+    io::prelude::*,
+    str::{from_utf8, FromStr},
+};
 
 pub struct Scanner<R: Read> {
     reader: R,
@@ -36,7 +38,7 @@ impl<R: Read> Parse<i64, R> for Scanner<R> {
     }
 }
 
-fn get_token<'a, R: Read>(reader: &'a mut R) -> impl Iterator<Item = u8> + 'a {
+fn get_token<R: Read>(reader: &mut R) -> impl Iterator<Item = u8> + '_ {
     reader
         .by_ref()
         .bytes()
@@ -48,7 +50,7 @@ fn get_token<'a, R: Read>(reader: &'a mut R) -> impl Iterator<Item = u8> + 'a {
 fn parse_i64<I: Iterator<Item = u8>>(token: &mut I) -> i64 {
     let head = token.next().unwrap();
     if head == 45 {
-        -token.fold(0 as i64, |a, x| a * 10 + (x - 48) as i64)
+        -token.fold(0, |a, x| a * 10 + (x - 48) as i64)
     } else {
         token.fold((head - 48) as i64, |a, x| a * 10 + (x - 48) as i64)
     }

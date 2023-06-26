@@ -16,10 +16,10 @@ where
             len *= 2;
         }
         SegmentTree {
-            n: n,
+            n,
             data: vec![id; 2 * len - 1],
-            id: id,
-            op: op,
+            id,
+            op,
         }
     }
     pub fn update(&mut self, mut i: usize, x: T) {
@@ -58,7 +58,7 @@ mod tests {
         let mut seg = SegmentTree::new(SIZE, std::i32::MIN, std::cmp::max);
         let random_array: Vec<i32> = (0..SIZE).map(|_| rand::random()).collect();
         for (i, &x) in random_array.iter().enumerate() {
-            seg.update(i as usize, x);
+            seg.update(i, x);
         }
 
         for i in 0..SIZE {

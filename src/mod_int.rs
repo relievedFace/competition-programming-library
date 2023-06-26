@@ -3,9 +3,9 @@ const PRIME_NUMBER: i64 = 1_000_000_007;
 #[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub struct ModInt(i64);
 
-impl Into<ModInt> for i64 {
-    fn into(self) -> ModInt {
-        ModInt(self)
+impl From<i64> for ModInt {
+    fn from(val: i64) -> Self {
+        ModInt(val)
     }
 }
 
