@@ -1,5 +1,6 @@
 pub mod binary_search;
 pub mod gcd_lcm;
+pub mod map;
 pub mod matrix;
 pub mod mod_int;
 pub mod run_length_encoding;

@@ -1,5 +1,4 @@
-pub use itertools::iproduct;
-use itertools::Itertools;
+use itertools::{iproduct, Itertools};
 
 pub fn rotate<T>(matrix: &Vec<Vec<T>>) -> Vec<Vec<T>>
 where
