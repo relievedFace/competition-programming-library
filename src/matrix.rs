@@ -1,4 +1,5 @@
 use itertools::{iproduct, Itertools};
+use std::collections::HashSet;
 
 pub fn rotate<T>(matrix: &Vec<Vec<T>>) -> Vec<Vec<T>>
 where
@@ -81,4 +82,30 @@ where
     }
 
     shifted_v
+}
+
+pub fn get_element_bounds<T>(table: &[Vec<T>], e: T) -> Option<[(usize, usize); 4]>
+where
+    T: Eq,
+{
+    let mut set = HashSet::new();
+
+    for (y, line) in table.iter().enumerate() {
+        for (x, element) in line.iter().enumerate() {
+            if *element == e {
+                set.insert((y, x));
+            }
+        }
+    }
+
+    if set.is_empty() {
+        None
+    } else {
+        let x1 = *set.iter().map(|(_, x)| x).min().unwrap();
+        let y1 = *set.iter().map(|(y, _)| y).min().unwrap();
+        let x2 = *set.iter().map(|(_, x)| x).max().unwrap();
+        let y2 = *set.iter().map(|(y, _)| y).max().unwrap();
+
+        Some([(x1, y1), (x2, y1), (x2, y2), (x1, y2)])
+    }
 }
