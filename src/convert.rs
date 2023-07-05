@@ -3,7 +3,7 @@ use std::error::Error;
 
 /// charの配列を数値に変換。
 /// 基数を引数のradixで指定。
-pub fn vec_char_to_num<T>(s: &[char], radix: u32) -> Result<T, Box<dyn Error>>
+pub fn from_vec_char_radix<T>(s: &[char], radix: u32) -> Result<T, Box<dyn Error>>
 where
     T: Num,
     <T as Num>::FromStrRadixErr: Error,
@@ -21,19 +21,19 @@ mod tests {
     #[test]
     fn test_vec_char_to_num() {
         let s: Vec<char> = "111".chars().collect();
-        assert_eq!(7i32, vec_char_to_num::<i32>(&s, 2).unwrap());
+        assert_eq!(7i32, from_vec_char_radix::<i32>(&s, 2).unwrap());
 
         let s: Vec<char> = "111".chars().collect();
-        assert_eq!(111i32, vec_char_to_num::<i32>(&s, 10).unwrap());
+        assert_eq!(111i32, from_vec_char_radix::<i32>(&s, 10).unwrap());
 
         let s: Vec<char> = "2000".chars().collect();
-        assert_eq!(2000usize, vec_char_to_num::<usize>(&s, 10).unwrap());
+        assert_eq!(2000usize, from_vec_char_radix::<usize>(&s, 10).unwrap());
     }
 
     #[test]
     #[should_panic]
     fn panic_test_vec_char_to_num() {
         let s: Vec<char> = "b2000".chars().collect();
-        let _result = vec_char_to_num::<usize>(&s, 10).unwrap();
+        let _result = from_vec_char_radix::<usize>(&s, 10).unwrap();
     }
 }
