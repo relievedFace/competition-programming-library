@@ -1,8 +1,8 @@
 use num_traits::Num;
 use std::error::Error;
 
-/// charの配列を数値に変換
-/// radixに奇数を指定
+/// charの配列を数値に変換。
+/// 基数を引数のradixで指定。
 pub fn vec_char_to_num<T>(s: &[char], radix: u32) -> Result<T, Box<dyn Error>>
 where
     T: Num,
