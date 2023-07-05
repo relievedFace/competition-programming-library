@@ -4,6 +4,7 @@ pub mod gcd_lcm;
 pub mod map;
 pub mod matrix;
 pub mod mod_int;
+pub mod prime;
 pub mod run_length_encoding;
 pub mod scanner;
 pub mod segumet_tree;
