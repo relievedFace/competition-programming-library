@@ -1,3 +1,4 @@
+#[derive(Debug)]
 pub struct UnionFind {
     parent: Vec<usize>,
     sizes: Vec<usize>,
