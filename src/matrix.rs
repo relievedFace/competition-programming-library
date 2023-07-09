@@ -109,3 +109,34 @@ where
         Some([(x1, y1), (x2, y1), (x2, y2), (x1, y2)])
     }
 }
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn test_rotate() {
+        let v = vec![vec![1, 2, 3], vec![4, 5, 6], vec![7, 8, 9]];
+
+        let v_rotated_90 = rotate(&v);
+        assert_eq!(
+            &vec![vec![7, 4, 1], vec![8, 5, 2], vec![9, 6, 3]],
+            &v_rotated_90
+        );
+
+        let v_rotated_180 = rotate(&v_rotated_90);
+        assert_eq!(
+            &vec![vec![9, 8, 7], vec![6, 5, 4], vec![3, 2, 1]],
+            &v_rotated_180
+        );
+
+        let v_rotated_270 = rotate(&v_rotated_180);
+        assert_eq!(
+            &vec![vec![3, 6, 9], vec![2, 5, 8], vec![1, 4, 7]],
+            &v_rotated_270
+        );
+
+        let v_rotated_0 = rotate(&v_rotated_270);
+        assert_eq!(&v, &v_rotated_0);
+    }
+}
