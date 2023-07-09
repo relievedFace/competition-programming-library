@@ -3,7 +3,7 @@ pub struct ModInt<const P: i64>(i64);
 
 impl<const P: i64> From<i64> for ModInt<{ P }> {
     fn from(val: i64) -> Self {
-        ModInt(val)
+        ModInt(val % P)
     }
 }
 
