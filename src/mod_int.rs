@@ -18,6 +18,7 @@ impl<const P: u64> std::ops::Add for ModInt<{ P }> {
 impl<const P: u64> std::ops::AddAssign for ModInt<P> {
     fn add_assign(&mut self, rhs: Self) {
         self.0 += rhs.0;
+        self.0 %= P;
     }
 }
 
@@ -101,4 +102,37 @@ pub fn combination<const P: u64>(n: ModInt<P>, r: ModInt<P>) -> ModInt<P> {
     let num = (2..=r.0).fold(1.into(), |a: ModInt<P>, i| a * i.into());
     let den = (n.0 - r.0 + 1..=n.0).fold(1.into(), |a: ModInt<P>, i| a * i.into());
     den * num.pow(P - 2)
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn test_mod_int() {
+        // Test Add
+        let a: ModInt<7> = 2.into();
+        let b: ModInt<7> = 3.into();
+        let c: ModInt<7> = 4.into();
+        let d: ModInt<7> = 5.into();
+
+        assert_eq!(a + b, ModInt(5));
+        assert_eq!(b + c, ModInt(0));
+        assert_eq!(c + d, ModInt(2));
+
+        // Test AddAssign
+        let mut a: ModInt<7> = 2.into();
+        let b: ModInt<7> = 3.into();
+        let mut c: ModInt<7> = 4.into();
+        let d: ModInt<7> = 5.into();
+        let mut e: ModInt<7> = 3.into();
+        let f: ModInt<7> = 4.into();
+
+        a += b;
+        assert_eq!(a, ModInt(5));
+        c += d;
+        assert_eq!(c, ModInt(2));
+        e += f;
+        assert_eq!(e, ModInt(0));
+    }
 }
