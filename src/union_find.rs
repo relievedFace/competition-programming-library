@@ -12,19 +12,19 @@ impl UnionFind {
         }
     }
 
-    pub fn find(&mut self, x: usize) -> usize {
+    pub fn root(&mut self, x: usize) -> usize {
         if x == self.parent[x] {
             x
         } else {
             let x = self.parent[x];
-            self.parent[x] = self.find(x);
+            self.parent[x] = self.root(x);
             self.parent[x]
         }
     }
 
     pub fn unite(&mut self, x: usize, y: usize) -> bool {
-        let mut x = self.find(x);
-        let mut y = self.find(y);
+        let mut x = self.root(x);
+        let mut y = self.root(y);
         if x != y {
             if self.sizes[x] < self.sizes[y] {
                 std::mem::swap(&mut x, &mut y);
@@ -38,11 +38,11 @@ impl UnionFind {
     }
 
     pub fn same(&mut self, x: usize, y: usize) -> bool {
-        self.find(x) == self.find(y)
+        self.root(x) == self.root(y)
     }
 
     pub fn size(&mut self, x: usize) -> usize {
-        let root = self.find(x);
+        let root = self.root(x);
         self.sizes[root]
     }
 }
