@@ -1,6 +1,7 @@
 pub mod binary_search;
 pub mod convert;
 pub mod gcd_lcm;
+pub mod iter;
 pub mod map;
 pub mod matrix;
 pub mod mod_int;
