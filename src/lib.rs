@@ -5,6 +5,7 @@ pub mod iter;
 pub mod map;
 pub mod matrix;
 pub mod mod_int;
+pub mod multiset;
 pub mod prime;
 pub mod run_length_encoding;
 pub mod scanner;
