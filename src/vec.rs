@@ -7,13 +7,13 @@ where
         .flat_map(|(i, v)| v.iter().enumerate().map(move |(j, e)| (i, j, e.clone())))
 }
 
-pub trait VecUtil<T> {
+pub trait CheckBoundGet<T> {
     fn check_bound_get(&self, px: usize, py: usize, dx: isize, dy: isize) -> Option<&T>;
     fn check_bound_get_mut(&mut self, px: usize, py: usize, dx: isize, dy: isize)
         -> Option<&mut T>;
 }
 
-impl<T> VecUtil<T> for Vec<Vec<T>> {
+impl<T> CheckBoundGet<T> for Vec<Vec<T>> {
     /// self[py + dy][px + dx]を返す。
     ///
     /// # Examples
