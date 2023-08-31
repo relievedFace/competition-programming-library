@@ -7,19 +7,19 @@ where
         .flat_map(|(i, v)| v.iter().enumerate().map(move |(j, e)| (i, j, e.clone())))
 }
 
-pub trait CheckBoundGet<T> {
+pub trait Vec2DUtils<T> {
     fn check_bound_get(&self, px: usize, py: usize, dx: isize, dy: isize) -> Option<&T>;
     fn check_bound_get_mut(&mut self, px: usize, py: usize, dx: isize, dy: isize)
         -> Option<&mut T>;
 }
 
-impl<T> CheckBoundGet<T> for Vec<Vec<T>> {
+impl<T> Vec2DUtils<T> for Vec<Vec<T>> {
     /// self[py + dy][px + dx]を返す。
     ///
     /// # Examples
     ///
     /// ```
-    /// use competitive_programming_library::vec::VecUtil;
+    /// use competitive_programming_library::vec::Vec2DUtils;
     ///
     /// let v = vec![
     ///     vec![1, 2, 3],
@@ -44,7 +44,7 @@ impl<T> CheckBoundGet<T> for Vec<Vec<T>> {
     /// # Examples
     ///
     /// ```
-    /// use competitive_programming_library::vec::VecUtil;
+    /// use competitive_programming_library::vec::Vec2DUtils;
     ///
     /// let mut v = vec![
     ///     vec![1, 2, 3],
