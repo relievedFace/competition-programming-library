@@ -77,13 +77,13 @@ impl<const P: u64> std::ops::Div for ModInt<P> {
     type Output = Self;
 
     fn div(self, rhs: Self) -> Self::Output {
-        ModInt(self.0 / rhs.0)
+        self * rhs.pow({ P } - 2)
     }
 }
 
 impl<const P: u64> std::ops::DivAssign for ModInt<P> {
     fn div_assign(&mut self, rhs: Self) {
-        self.0 /= rhs.0
+        *self = *self / rhs;
     }
 }
 impl<const P: u64> ModInt<P> {
