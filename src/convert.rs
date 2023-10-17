@@ -6,8 +6,7 @@ use std::error::Error;
 pub fn from_vec_char_radix<T>(s: &[char], radix: u32) -> Result<T, Box<dyn Error>>
 where
     T: Num,
-    <T as Num>::FromStrRadixErr: Error,
-    <T as Num>::FromStrRadixErr: 'static,
+    <T as Num>::FromStrRadixErr: Error + 'static,
 {
     let s: String = s.iter().collect();
     let result = T::from_str_radix(&s, radix)?;
